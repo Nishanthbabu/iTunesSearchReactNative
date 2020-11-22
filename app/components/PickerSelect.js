@@ -9,8 +9,8 @@ const PickerSelect = (props) => {
       onValueChange={(value) => props.onPickerSelectValueChange(value)}
       items={props.pickerItems}
       style={{
-        inputIOS: styles.input,
-        inputAndroid: styles.input,
+        inputIOS: styles.inputStyle,
+        inputAndroid: styles.inputStyle,
       }}
       value={props.value}
       placeholder={props.placeholder}
@@ -20,7 +20,7 @@ const PickerSelect = (props) => {
             name="caretdown"
             size={30}
             color="#000"
-            style={{paddingTop: 10, paddingRight: 10}}
+            style={styles.iconStyle}
           />
         );
       }}
@@ -29,7 +29,7 @@ const PickerSelect = (props) => {
 };
 
 const styles = StyleSheet.create({
-  input: {
+  inputStyle: {
     backgroundColor: '#FFF',
     fontSize: 16,
     paddingVertical: 10,
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
   },
+  iconStyle: {paddingTop: 10, paddingRight: 10},
 });
 
 export default PickerSelect;
