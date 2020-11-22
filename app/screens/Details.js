@@ -72,7 +72,12 @@ const Details = ({navigation, route}) => {
     }
   });
   useTrackPlayerEvents([TrackPlayerEvents.PLAYBACK_QUEUE_ENDED], (event) => {
-    if (event && event.type && event.type === 'playback-queue-ended') {
+    if (
+      isTrackPlayerInit &&
+      event &&
+      event.type &&
+      event.type === 'playback-queue-ended'
+    ) {
       navigation.goBack();
     }
   });
