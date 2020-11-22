@@ -1,9 +1,16 @@
-import {ActivityIndicator, SafeAreaView, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Button, Image, Text} from 'react-native-elements';
 import * as TrackPlayer from 'react-native-track-player';
 import {useTrackPlayerEvents} from 'react-native-track-player/lib/hooks';
 import {TrackPlayerEvents, STATE_PLAYING} from 'react-native-track-player';
+import {millisToMinutesAndSeconds} from '../utills/common';
 
 //function to initialize the Track Player
 const trackPlayerInit = async (trackData) => {
@@ -69,7 +76,7 @@ const Details = ({navigation, route}) => {
       navigation.goBack();
     }
   });
-
+  const trackLength = millisToMinutesAndSeconds(trackData.trackTimeMillis);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.bannerImageContainer}>
@@ -80,20 +87,24 @@ const Details = ({navigation, route}) => {
         />
       </View>
       <View style={styles.detailsAndControlsContainer}>
-        <Text style={styles.detailsText}>
-          Track Name - {trackData.trackName}
-        </Text>
-        <Text style={styles.detailsText}>
-          Artist - {trackData.collectionArtistName}
-        </Text>
-
-        <View style={styles.playPauseBtnContainer}>
-          <Button
-            title={isPlaying ? 'Pause' : 'Play'}
-            onPress={onButtonPressed}
-            disabled={!isTrackPlayerInit}
-          />
-        </View>
+        <ScrollView style={{flex: 1}}>
+          <Text style={styles.detailsText}>
+            Track Name - {trackData.trackName}
+          </Text>
+          <Text style={styles.detailsText}>Kind - {trackData.kind}</Text>
+          <Text style={styles.detailsText}>
+            Artist - {trackData.artistName}
+          </Text>
+          <Text style={styles.detailsText}>
+            Artist 2 - {trackData.collectionArtistName}
+          </Text>
+          <Text style={styles.detailsText}>Length - {trackLength}</Text>
+        </ScrollView>
+        <Button
+          title={isPlaying ? 'Pause' : 'Play'}
+          onPress={onButtonPressed}
+          disabled={!isTrackPlayerInit}
+        />
       </View>
     </SafeAreaView>
   );
@@ -105,9 +116,9 @@ const styles = StyleSheet.create({
     flex: 7,
   },
   detailsAndControlsContainer: {
+    padding: 5,
     flex: 3,
   },
-  playPauseBtnContainer: {flex: 1, justifyContent: 'flex-end'},
   image: {
     width: '100%',
     height: '100%',
