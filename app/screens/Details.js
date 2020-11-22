@@ -82,12 +82,22 @@ const Details = ({navigation, route}) => {
     }
   });
   const trackLength = millisToMinutesAndSeconds(trackData.trackTimeMillis);
+  let bannerUri = null;
+  if (trackData.artworkUrl100) {
+    const thumbNailType = trackData.artworkUrl100.split('.').pop();
+    if (thumbNailType) {
+      bannerUri =
+        trackData.artworkUrl100.replace(/\/[^\/]*$/, '/500x500') +
+        '.' +
+        thumbNailType;
+    }
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.bannerImageContainer}>
         <Image
           style={styles.image}
-          source={{uri: trackData.artworkUrl100}}
+          source={{uri: bannerUri ? bannerUri : ''}}
           PlaceholderContent={<ActivityIndicator />}
         />
       </View>
