@@ -1,9 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   FlatList,
   SafeAreaView,
-  StyleSheet, TouchableHighlight, TouchableOpacity,
+  StyleSheet,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import mapActions from '../redux/actions/mapActions';
@@ -44,8 +45,8 @@ const DashBoard = ({navigation, executeGetSearchRequest, searchResponse}) => {
           onChangeText={updateSearch}
           value={searchTextState}
         />
-        <View style={{flexDirection: 'row', marginBottom: 5}}>
-          <View style={{flex: 7}}>
+        <View style={styles.searchBtnAndPickerContainer}>
+          <View style={styles.pickerContainer}>
             <PickerSelect
               onPickerSelectValueChange={(value) => updateEntity(value)}
               pickerItems={[]}
@@ -53,8 +54,7 @@ const DashBoard = ({navigation, executeGetSearchRequest, searchResponse}) => {
               placeholder={pickerItems[0]}
             />
           </View>
-          <View
-            style={{flex: 3, justifyContent: 'center', alignItems: 'center'}}>
+          <View style={styles.searchBtnContainer}>
             <Button title="Search" type="clear" onPress={onSearchClick} />
           </View>
         </View>
@@ -74,11 +74,7 @@ const DashBoard = ({navigation, executeGetSearchRequest, searchResponse}) => {
             }
             renderItem={({item}) => (
               <TouchableOpacity
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  margin: 1,
-                }}
+                style={styles.listItemContainer}
                 onPress={() => onListItemClick(item)}>
                 <Image
                   style={styles.imageThumbnail}
@@ -91,11 +87,7 @@ const DashBoard = ({navigation, executeGetSearchRequest, searchResponse}) => {
             keyExtractor={(item, index) => index}
           />
         ) : (
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+          <View style={styles.noResultContainer}>
             <Text> No result found</Text>
           </View>
         )}
@@ -109,6 +101,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 100,
+  },
+  searchBtnAndPickerContainer: {
+    flexDirection: 'row',
+    marginBottom: 5,
+  },
+  pickerContainer: {flex: 7},
+  searchBtnContainer: {flex: 3, justifyContent: 'center', alignItems: 'center'},
+  listItemContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 1,
+  },
+  noResultContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

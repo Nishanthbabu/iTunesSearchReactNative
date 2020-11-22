@@ -6,7 +6,6 @@
  */
 import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
 import {Provider} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 
@@ -19,14 +18,6 @@ const Stack = createStackNavigator();
 const App: () => React$Node = () => {
   return (
     <Provider store={store}>
-      {/*<NavigationContainer>*/}
-      {/*  <>*/}
-      {/*    <StatusBar barStyle="dark-content" />*/}
-      {/*    <SafeAreaView>*/}
-      {/*      <DashBoard />*/}
-      {/*    </SafeAreaView>*/}
-      {/*  </>*/}
-      {/*</NavigationContainer>*/}
       <NavigationContainer>
         <Stack.Navigator initialRouteName="DashBoard">
           <Stack.Screen name="DashBoard" component={DashBoard} />
